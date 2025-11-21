@@ -1,0 +1,56 @@
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const path = require("path")
+const connectDB = require("./config/db");
+const authRoutes = require('./routes/authRoutes');
+const incomeRoutes = require("./routes/incomeRoutes")
+const expenseRoutes = require("./routes/expenseRoutes")
+const dashboardRoutes = require("./routes/dashboardRoutes")
+
+const app = express();
+
+// Middleware to handle CORS
+app.use(cors({
+    origin: process.env.CLIENT_URL || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
+app.use(express.json());
+
+// Add request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
+
+connectDB();
+
+// Routes
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/income", incomeRoutes);
+app.use("/api/v1/expense",expenseRoutes);
+app.use("/api/v1/dashboard",dashboardRoutes);
+
+//Serve uploads folder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Test routes
+app.get("/", (req, res) => {
+    res.json({ 
+        message: "Expense Tracker API is running!",
+        timestamp: new Date().toISOString()
+    });
+});
+
+
+
+const PORT = process.env.PORT || 8000
+
+// FIXED: Added '0.0.0.0' as the host parameter
+app.listen(PORT, '0.0.0.0', () => {
+    console.log("✅ Server is running at port", PORT)
+    console.log(`✅ Local: http://localhost:${PORT}`)
+    console.log(`✅ Network: http://0.0.0.0:${PORT}`)
+});
