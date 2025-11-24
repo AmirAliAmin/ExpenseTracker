@@ -12,7 +12,7 @@ function RecentTransactions({transcation,onSeeMore}) {
         </div>
         <div className='mt-6 '>
             {
-                transcation?.slice(0,5)?.map((item)=>(
+                transcation?.slice(0,4)?.map((item)=>(
                     <TranscationInfoCard 
                     key={item._id} 
                     title={item.type === "expense" ? item.category : item.source} 

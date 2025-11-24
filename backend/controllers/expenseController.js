@@ -61,13 +61,13 @@ exports.downloadExpenseExcel = async (req,res) => {
         const data = expense.map((item)=>({
             Category:item.category,
             Amount:item.amount,
-            Date:item.date,
+            Date: item.date.toISOString().split('T')[0],
         }));
 
         const wb = xlsx.utils.book_new();
         const ws = xlsx.utils.json_to_sheet(data);
         xlsx.utils.book_append_sheet(wb,ws, "Expense");
-        xlsx.writeFile(wb,'expensexlsx');
+        xlsx.writeFile(wb,'expense_details.xlsx');
         res.download("expense_details.xlsx")
     } catch (error) {
         res.status(500).json({message:"Server Error"})

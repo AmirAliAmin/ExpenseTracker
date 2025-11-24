@@ -12,7 +12,7 @@ export default function ExpenseTranscation({transcation,onSeeMore}) {
       </div>
       <div className='mt-6 '>
                   {
-                      transcation?.slice(0,5)?.map((expense)=>(
+                      transcation?.slice(0,4)?.map((expense)=>(
                           <TranscationInfoCard
                           key={expense._id} 
                           title={expense.category} 
