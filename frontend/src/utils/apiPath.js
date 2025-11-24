@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.BASE_URL;
+export const BASE_URL =import.meta.env.BASE_URL;
 
 //untils.apiPath.js
 export const API_PATH = {
