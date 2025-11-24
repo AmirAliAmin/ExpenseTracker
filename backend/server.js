@@ -48,9 +48,8 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 8000
 
-// FIXED: Added '0.0.0.0' as the host parameter
-app.listen(PORT, '0.0.0.0', () => {
+
+app.listen(PORT, () => {
     console.log("✅ Server is running at port", PORT)
     console.log(`✅ Local: http://localhost:${PORT}`)
-    console.log(`✅ Network: http://0.0.0.0:${PORT}`)
 });
